@@ -17,6 +17,6 @@ console.log(object2);
 // Tomorrow we will learn
 // .map(), .forEach(), .filter(), .find(), .sort()
 // Object Destructuring in JS Objects
-// Array matching, Object matching 
+// Array matching, Object matching
 // Maps/Set  1 min
 // Classes in JS

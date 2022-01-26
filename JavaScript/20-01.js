@@ -1,6 +1,6 @@
 // Class
 
-class Animal {
+export default class Animal {
   noOfLegs;
   color;
   family;
@@ -18,7 +18,7 @@ class Animal {
   }
 }
 
-class Dog extends Animal {
+export class Dog extends Animal {
   breed;
   weight;
   height;
@@ -41,3 +41,12 @@ animal.showAnimal();
 let dog = new Dog("Beige", "Corgi", "30kg", "0.5m");
 console.log(dog);
 dog.showAnimal();
+
+export class Cat extends Animal {
+  showAnimal() {
+    console.log("This is cat");
+  }
+}
+
+let testCat = new Cat();
+testCat.showAnimal();
