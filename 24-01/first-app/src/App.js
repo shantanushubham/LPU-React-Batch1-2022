@@ -1,48 +1,29 @@
-import React, { Component } from "react";
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SignUpForm from "./components/SIgnUpForm";
+import Header from "./components/Header";
 import SumNumbers from "./components/SumNumbers";
+import TaskScreen from "./components/TaskScreen";
+import CounterComponent from "./components/CounterComponent";
 
-// const App = () => {
-//   return (
-//     <div>
-//       <h1>This is App Component</h1>
-//       <SignUpForm />
-//     </div>
-//   );
-// };
-
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.h1Element = React.createRef();
-  }
-
-  render() {
-    return (
-      <div>
-        <h1
-          ref={this.h1Element}
-          onClick={() => console.log({...this.h1Element.current})}
-        >
-          This is App Component
-        </h1>
-      </div>
-    );
-  }
-}
+const App = () => {
+  return (
+    <div>
+      <BrowserRouter>
+        <Header />
+        <Routes>
+          <Route path={"/"} element={<h1>This is on Home Page</h1>} />
+          <Route path={"/contact"} element={<h1>This is on Contact Page</h1>} />
+          <Route path={"/about"} element={<h1>This is on About Page</h1>} />
+          <Route path={"/signup"} element={<SignUpForm />}>
+            <Route path={"sum"} element={<SumNumbers />} />
+          </Route>
+          <Route path={"/tasks"} element={<TaskScreen />} />
+          <Route path={"/counter"} element={<CounterComponent />} />
+        </Routes>
+      </BrowserRouter>
+    </div>
+  );
+};
 
 export default App;
-
-///    div
-//    /   \
-///  Test  Test
-
-//    section
-//    /    \
-//   Test  Test
-
-//     LinkedInApp
-//       /    \
-//      Nav   Page
-//              |
-//           HomePage

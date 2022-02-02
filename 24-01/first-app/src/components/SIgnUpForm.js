@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import { Link, Outlet, useNavigate, useParams, useLocation } from "react-router-dom";
 import { isValidUser } from "../Validators";
 
 const SignUpForm = () => {
@@ -11,8 +12,14 @@ const SignUpForm = () => {
   const [error, setError] = useState("");
   const passwordElement = useRef(null);
 
+  let navigate = useNavigate();
+  let params = useParams();
+  let location = useLocation();
+
   let handleChange = (e) =>
     setState({ ...state, [e.target.name]: e.target.value });
+
+  console.log(location);
 
   return (
     <form
@@ -21,6 +28,7 @@ const SignUpForm = () => {
         console.log(`The password is: ${passwordElement.current.value}`);
         if (isValidUser({ ...state })) {
           console.log("User is valid!", state);
+          navigate("/");
         } else {
           setError("The user is invalid!");
           console.log("User is invalid");
@@ -62,8 +70,26 @@ const SignUpForm = () => {
       />
       <button type={`submit`}>Submit</button>
       <span style={{ color: "red" }}>{error}</span>
+      <Link to={"sum"}>Sum Component</Link>
+      <button
+        onClick={(e) => {
+          // Write some code to go to sum component
+          navigate("sum");
+        }}
+      >
+        Go to Sum Component
+      </button>
+      <Outlet />
     </form>
   );
 };
 
 export default SignUpForm;
+
+// Create a react app of 4 pages
+// 1 is login
+// 2 is signup
+// 3 is profile
+// 4 landing page of some company
+
+// We can go from login to signup and vice versa

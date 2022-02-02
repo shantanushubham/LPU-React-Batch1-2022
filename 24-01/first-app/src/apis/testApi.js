@@ -6,7 +6,7 @@ export const testAPI = (a, b) => {
   });
 };
 
-let tasks = [
+export let tasks = [
   {
     taskNumber: 1,
     taskName: "Task 1",
@@ -28,6 +28,13 @@ let tasks = [
     taskDescription: "This is task 1",
   },
 ];
+
+export const getAllTasks = () =>
+  new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(tasks);
+    }, 3000);
+  });
 
 // Create 2 components:
 // 1. AllTasks
