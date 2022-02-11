@@ -1,5 +1,11 @@
 import React, { useRef, useState } from "react";
-import { Link, Outlet, useNavigate, useParams, useLocation } from "react-router-dom";
+import {
+  Link,
+  Outlet,
+  useNavigate,
+  useParams,
+  useLocation,
+} from "react-router-dom";
 import { isValidUser } from "../Validators";
 
 const SignUpForm = () => {
@@ -30,8 +36,7 @@ const SignUpForm = () => {
           console.log("User is valid!", state);
           navigate("/");
         } else {
-          setError("The user is invalid!");
-          console.log("User is invalid");
+          throw new Error("User is invalid!");
         }
       }}
     >

@@ -3,6 +3,9 @@ import React, { useReducer } from "react";
 const countReducer = (state, action) => {
   switch (action.type) {
     case "increment":
+      if (state.count + action.payload >= 3) {
+        throw new Error("Count cannot be greater than 3");
+      }
       return { count: state.count + action.payload }; // setState({ count: state.count + 1 });
     case "decrement":
       return { count: state.count - action.payload };
