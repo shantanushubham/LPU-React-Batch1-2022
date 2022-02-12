@@ -1,7 +1,10 @@
 import React, { createContext, lazy, Suspense, useContext } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Provider } from "react-redux";
+import { createStore } from "redux";
 import higherOrderComponent from "./components/Hoc";
 import Header from "./components/Header";
+import counterReducer from "./reducers/CounterReducer";
 const SampleRenderProps = lazy(() => import("./components/SampleRenderProps"));
 const I18Component = lazy(() => import("./components/I18Component"));
 const ErrorBoundary = lazy(() => import("./components/ErrorBoundary"));
@@ -10,11 +13,14 @@ const SignUpForm = lazy(() => import("./components/SIgnUpForm"));
 const SumNumbers = lazy(() => import("./components/SumNumbers"));
 const TaskScreen = lazy(() => import("./components/TaskScreen"));
 const Photos = lazy(() => import("./components/Photos"));
+const ReduxCounter = lazy(() => import("./components/ReduxCounter"));
 
 export const AnupamaContext = createContext({ favCharacter: "Anupama" });
 export const BreakingBadContext = createContext({
   favCharacter: "Walter White",
 });
+
+const myReduxStore = createStore(counterReducer);
 
 const App = () => {
   const TestApp = higherOrderComponent(() => {
@@ -58,6 +64,7 @@ const App = () => {
             <Route path={"/test"} element={<TestApp />} />
             <Route path={"/sample"} element={<SampleRenderProps />} />
             <Route path={"/international"} element={<I18Component />} />
+            <Route path={"/redux-counter"} element={<ReduxCounter />} />
           </Routes>
         </Suspense>
       </BrowserRouter>
@@ -66,15 +73,21 @@ const App = () => {
 };
 
 const MyApp = () => (
-  <AnupamaContext.Provider
-    value={{ favCharacter: "Anupama", favVillain: "Vanraj", loudest: "Kavya" }}
-  >
-    <BreakingBadContext.Provider
-      value={{ favCharacter: "Walter White", mostHatedCharacter: "Jessie" }}
+  <Provider store={myReduxStore}>
+    <AnupamaContext.Provider
+      value={{
+        favCharacter: "Anupama",
+        favVillain: "Vanraj",
+        loudest: "Kavya",
+      }}
     >
-      <App />
-    </BreakingBadContext.Provider>
-  </AnupamaContext.Provider>
+      <BreakingBadContext.Provider
+        value={{ favCharacter: "Walter White", mostHatedCharacter: "Jessie" }}
+      >
+        <App />
+      </BreakingBadContext.Provider>
+    </AnupamaContext.Provider>
+  </Provider>
 );
 
 export default MyApp;

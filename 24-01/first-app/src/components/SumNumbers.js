@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { testAPI } from "../apis/testApi";
 
 class SumNumbers extends Component {
@@ -23,7 +24,6 @@ class SumNumbers extends Component {
   //     sumString: `The sum is: ${this.state.sum}`,
   //   });
   // }
-
 
   setSum = (sum) => {
     if (typeof sum !== "undefined") {
@@ -63,9 +63,10 @@ class SumNumbers extends Component {
         />
         <button onClick={(e) => this.setSum()}>Add Numbers</button>
         <h3>{this.state.sumString}</h3>
+        <h1>The count is: {this.props.count}</h1>
       </div>
     );
   }
 }
 
-export default SumNumbers;
+export default connect((state) => ({ count: state.count }))(SumNumbers);
